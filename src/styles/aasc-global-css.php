@@ -101,7 +101,7 @@ function aasc_global_css() {
 	   ================================================================== */
 
 	#aasc-menu-mobile-1 .aasc-top-item > .kb-link-wrap > .kb-nav-link-content {
-		padding-left: 4px !important;
+		padding-left: 8px !important;
 	}
 
 	#aasc-menu-mobile-1 .aasc-top-item:not(.menu-item--toggled-on) > .kb-link-wrap {
