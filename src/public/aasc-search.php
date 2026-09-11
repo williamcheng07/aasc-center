@@ -259,22 +259,56 @@ add_action( 'wp_head', function () {
 	}
 
 	.aasc-cs__pager {
-		margin-top: 2rem;
+		margin-top: 2.5rem;
+	}
+
+	/* WordPress wraps the links in .nav-links — flex it so the gaps stay even. */
+	.aasc-cs__pager .nav-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: .5rem;
 	}
 
 	.aasc-cs__pager .page-numbers {
-		display: inline-block;
-		padding: .4rem .7rem;
-		margin-right: .25rem;
-		border: 1px solid #ddd;
-		border-radius: 4px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 44px;   /* square-ish, and a comfortable tap target */
+		min-height: 44px;
+		padding: 0 .75rem;
+		border: 2px solid #005587;
+		border-radius: 0;  /* square corners */
+		background: #fff;
+		color: #005587;
+		font-size: 1.125rem;
+		line-height: 1;
 		text-decoration: none;
 	}
 
-	.aasc-cs__pager .page-numbers.current {
-		background: #2774AE;
+	/* Previous / Next are wider than the number boxes. */
+	.aasc-cs__pager .prev,
+	.aasc-cs__pager .next {
+		padding: 0 1.25rem;
+	}
+
+	.aasc-cs__pager a.page-numbers:hover,
+	.aasc-cs__pager a.page-numbers:focus {
+		background: #005587;
 		color: #fff;
-		border-color: #2774AE;
+	}
+
+	/* The page you're on stays filled in. */
+	.aasc-cs__pager .page-numbers.current {
+		background: #005587;
+		color: #fff;
+	}
+
+	/* The "…" WordPress inserts between distant pages gets no box. */
+	.aasc-cs__pager .page-numbers.dots {
+		border-color: transparent;
+		background: none;
+		color: #555;
 	}
 
 	/* ---- mobile ---- */
@@ -417,8 +451,8 @@ add_action( 'template_redirect', function () {
 				echo get_the_posts_pagination(
 					array(
 						'mid_size'  => 2,
-						'prev_text' => '&lsaquo; Prev',
-						'next_text' => 'Next &rsaquo;',
+						'prev_text' => 'Previous',
+						'next_text' => 'Next',
 					)
 				);
 				?>
