@@ -345,8 +345,8 @@ function mountain_mover_table_feature() {
         }
 
         /* ---------- Small screens ---------- */
-        @media (max-width: 640px) {
-            #mountain-movers-toc.page { padding: 16px 16px 40px; margin: 0; }
+        @media (max-width: 1024px) {
+            #mountain-movers-toc.page { padding: 16px 8px 40px; margin: 0; }
             #mountain-movers-toc h1 { font-size: 0.98em; letter-spacing: .2em; }
             #mountain-movers-toc .section { font-size: 0.89em; }
             #mountain-movers-toc .title,
@@ -365,7 +365,7 @@ function mountain_mover_table_feature() {
             #mountain-movers-toc .entry.intro .sub { margin-left: 34px; }
             #mountain-movers-toc .kicker { margin-left: 34px; }
             #mountain-movers-toc .entry { grid-template-columns: 1fr 52px; }
-            #mountain-movers-toc .pdf-icon { width: 36px; height: 48px; }
+            #mountain-movers-toc .pdf-icon { width: 28px; height: 40px; }
             #mountain-movers-toc .pdf-label { font-size: 0.45em; }
         }
     </style>
