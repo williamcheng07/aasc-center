@@ -4,22 +4,24 @@
  * event_date is an ACF Date Picker, saved as Ymd (e.g. 20261118).
  */
 
-/* 1. Order: today, then upcoming (soonest first), then past (most recent first). */
+/* 1. Order: today, then upcoming (soonest first), then past (most recent first).
+ *    Loops with 'hide_past' => true show only today and upcoming events. */
 
 add_filter( 'kadence_blocks_pro_query_loop_query_vars', function ( $query, $ql_query_meta, $ql_id ) {
 
-	// Query Loop ID => number of events per page ( -1 = all ).
+	// Query Loop ID => events per page ( -1 = all ) and whether to hide past events.
 	$loops = array(
-		10559 => 6,
-		9684  => 9,
+		10559 => array( 'per_page' => 6, 'hide_past' => true ),  // current + upcoming only
+		9684  => array( 'per_page' => 9, 'hide_past' => false ), // all events
 	);
 
 	$ql_id = (int) $ql_id;
 
 	if ( isset( $loops[ $ql_id ] ) ) {
 		$query['aasc_closest_events'] = true;
+		$query['aasc_hide_past']      = $loops[ $ql_id ]['hide_past'];
 		$query['suppress_filters']    = false;
-		$query['posts_per_page']      = $loops[ $ql_id ];
+		$query['posts_per_page']      = $loops[ $ql_id ]['per_page'];
 	}
 
 	return $query;
@@ -38,6 +40,11 @@ add_filter( 'posts_clauses', function ( $clauses, $wp_query ) {
 
 	// Skip events with no date.
 	$clauses['where'] .= " AND aasc_event.meta_value != ''";
+
+	// Hide past events for loops that ask for it.
+	if ( $wp_query->get( 'aasc_hide_past' ) ) {
+		$clauses['where'] .= " AND aasc_event.meta_value >= {$today}";
+	}
 
 	// 0 = today, 1 = upcoming, 2 = past; then closest to today first.
 	$clauses['orderby'] = "CASE
